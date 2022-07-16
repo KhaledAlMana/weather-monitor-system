@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "9e8ad6e8-49de-40d3-a225-221d72235da9",
+    "name": "Ingestion Service - Local",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2022-07-12T11:04:04.507Z",
+    "modified": "2022-07-16T18:43:28.812Z",
+    "data": [
+      {
+        "name": "baseUrl",
+        "value": "http://client:tomato@localhost:62100/api/v1"
+      }
+    ]
+  }
+]

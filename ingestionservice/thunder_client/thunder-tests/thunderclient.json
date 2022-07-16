@@ -1,0 +1,35 @@
+[
+  {
+    "_id": "bd0b72cd-98b6-45a4-9000-92791d880e6a",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Hello",
+    "url": "{{baseUrl}}/",
+    "method": "GET",
+    "sortNum": 35000,
+    "created": "2022-07-13T13:24:25.377Z",
+    "modified": "2022-07-16T18:42:59.946Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "8f53040c-cfa4-4ac2-9306-cbe8da7e76ea",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Create Weather",
+    "url": "{{baseUrl}}/weather",
+    "method": "POST",
+    "sortNum": 45000,
+    "created": "2022-07-16T18:32:13.267Z",
+    "modified": "2022-07-16T18:32:13.267Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"weatherId\": \"123e4567-e89b-12d3-a456-426655440000\",\n    \"locationName\": \"Al Rawabi\",\n    \"latitude\": 20.5463465644,\n    \"longitude\": 17.4654373456,\n    \"time\" : \"20:00:00\",\n    \"celsiusDegree\": 39\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]
