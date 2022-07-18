@@ -14,6 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Location {
+
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "uuid2")
@@ -33,6 +34,8 @@ public class Location {
 
     @Column(nullable = false)
     private double lat;
+
+    // TODO: Add a field for the latest weather data; READ vs WRITE ?
 
     public Location() {
     }

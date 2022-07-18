@@ -31,12 +31,12 @@ public class Seeder implements ISeeder {
     HashMap<LocationDTO, WeatherDTO> weatherData;
     Logger logger = LoggerFactory.getLogger(Seeder.class);
 
-    @Value("${SEEDER_ENDPOINT}")
+    @Value("${app.seeder.endpoint}")
     private String SEEDER_ENDPOINT;
-    @Value("${BASIC_AUTH_CREDS}")
+    @Value("${app.seeder.auth}")
     private String BASIC_AUTH_CREDS;
 
-    @Scheduled(cron = "${SEEDER_CRON_EXPRESSION}")
+    @Scheduled(cron = "${app.seeder.cron}")
     @Override
     public void seed() throws Exception {
         weatherData = generateData();
@@ -60,17 +60,23 @@ public class Seeder implements ISeeder {
     @Override
     public void seedRequest(CreateWeatherReqDTO createWeatherReqDTO) {
         RestTemplate restTemplate = new RestTemplate();
-        // Typesafety issue here...
         HttpEntity<String> httpEntity = new HttpEntity(createWeatherReqDTO, getHeaders());
-        ResponseEntity<Object> response = restTemplate.postForEntity(SEEDER_ENDPOINT, httpEntity,
-                Object.class);
-        if (response.getStatusCode() == HttpStatus.ACCEPTED) {
-            logger.info("Seeded weather data successfully: {}",
-                    createWeatherReqDTO.toString());
-        } else {
+        ResponseEntity<Object> response = null;
+        // Typesafety issue here...
+        try {
+            response = restTemplate.postForEntity(SEEDER_ENDPOINT, httpEntity,
+                    Object.class);
+            if (response.getStatusCode() == HttpStatus.ACCEPTED) {
+                logger.info("Seeded weather data successfully: {}",
+                        createWeatherReqDTO.toString());
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e) {
             logger.error("Error while seeding data: {}", createWeatherReqDTO.toString());
             logger.error("ENDPOINT: {}", SEEDER_ENDPOINT);
-            logger.error("Response: {}", response.toString());
+            logger.error("RESPONSE: {}", response != null ? response.getBody().toString() : "EMPTY");
+            logger.error("Expception: {}", e.toString());
         }
     }
 

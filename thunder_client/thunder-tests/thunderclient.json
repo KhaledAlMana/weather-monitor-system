@@ -6,9 +6,9 @@
     "name": "Get All Locations",
     "url": "{{baseUrl}}/locations",
     "method": "GET",
-    "sortNum": 10000,
+    "sortNum": 30000,
     "created": "2022-07-12T23:42:57.917Z",
-    "modified": "2022-07-14T19:06:31.267Z",
+    "modified": "2022-07-18T21:05:03.775Z",
     "headers": [],
     "params": [],
     "tests": []

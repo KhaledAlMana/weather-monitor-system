@@ -75,21 +75,23 @@ services:
       - zookeeper
       - kafka
 
-  # weather-generator:
-  #   container_name: weather-generator
-  #   image: khaledalmana/weather-generator:latest
-  #   build:
-  #     context: ./
-  #     dockerfile: Dockerfile
-  #     args:
-  #       - COMPONENT=weathergenerator
-  #   restart: always
-  #   environment:
-  #     SEEDER_CRON_EXPRESSION: ${WG_SEEDER_CRON_EXPR}
-  #     WG_SEEDER_ENDPOINT: ${WG_SEEDER_ENDPOINT}
-  #     WG_BASIC_AUTH_CREDS: ${WG_BASIC_AUTH_CREDS}
-  #   depends_on:
-  #     - ingestion-service
+  weather-generator:
+    container_name: weather-generator
+    image: khaledalmana/weather-generator:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - COMPONENT=weathergenerator
+    restart: always
+    networks:
+      - wms
+    environment:
+      SEEDER_CRON_EXPR: ${WG_SEEDER_CRON_EXPR}
+      SEEDER_ENDPOINT: ${WG_SEEDER_ENDPOINT}
+      BASIC_AUTH_CREDS: ${WG_BASIC_AUTH_CREDS}
+    depends_on:
+      - ingestion-service
 
   monitor-app:
     container_name: monitor-app

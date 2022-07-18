@@ -4,10 +4,8 @@ import java.sql.Time;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @Builder
 public class WeatherDTO {
     private int celsiusDegree;

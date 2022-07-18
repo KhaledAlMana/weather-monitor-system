@@ -1,15 +1,15 @@
 [
   {
     "_id": "9e8ad6e8-49de-40d3-a225-221d72235da9",
-    "name": "WMS-DEV",
+    "name": "weather-monitor-system",
     "default": true,
     "sortNum": 10000,
     "created": "2022-07-12T11:04:04.507Z",
-    "modified": "2022-07-14T14:07:29.975Z",
+    "modified": "2022-07-18T21:04:49.173Z",
     "data": [
       {
         "name": "baseUrl",
-        "value": "http://localhost:62000/api/v1"
+        "value": "http://client:tomato@localhost:62000/api/v1"
       }
     ]
   }

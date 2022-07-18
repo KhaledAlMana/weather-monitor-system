@@ -1,0 +1,1 @@
+{"client":"Thunder Client","environmentName":"weather-monitor-system","dateExported":"2022-07-18T21:06:16.549Z","version":"1.0","variables":[{"name":"baseUrl","value":"http://client:tomato@localhost:62000/api/v1"}]}

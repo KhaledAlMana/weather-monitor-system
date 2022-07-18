@@ -1,7 +1,7 @@
 [
   {
     "_id": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
-    "colName": "WMS",
+    "colName": "weather-monitor-system",
     "created": "2022-07-12T23:42:45.928Z",
     "sortNum": 10000,
     "folders": []
