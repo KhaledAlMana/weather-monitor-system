@@ -1,0 +1,63 @@
+[
+  {
+    "_id": "12efe032-b52a-455f-8a95-dbb9da1d3123",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Get All Locations",
+    "url": "{{baseUrl}}/locations",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-07-12T23:42:57.917Z",
+    "modified": "2022-07-14T19:06:31.267Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "33e654d8-0991-4093-9b6a-964798abb67f",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Get All Latest Weather",
+    "url": "{{baseUrl}}/weather/latest",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-07-12T23:43:42.473Z",
+    "modified": "2022-07-14T22:06:14.587Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "4db719b9-82f0-4116-9260-0d123d79ab09",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Get Average Weather by ID",
+    "url": "{{baseUrl}}/weather/average/7ace4218-cb60-4b98-9cf8-496b25c00ffe",
+    "method": "GET",
+    "sortNum": 25000,
+    "created": "2022-07-12T23:43:47.917Z",
+    "modified": "2022-07-14T22:33:58.067Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "bd0b72cd-98b6-45a4-9000-92791d880e6a",
+    "colId": "a9636ff6-7d48-4159-b22d-60ae55a6834d",
+    "containerId": "",
+    "name": "Create Weather",
+    "url": "{{baseUrl}}/weather",
+    "method": "POST",
+    "sortNum": 35000,
+    "created": "2022-07-13T13:24:25.377Z",
+    "modified": "2022-07-16T11:07:15.492Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"weatherId\": \"123e4567-e89b-12d3-a456-426655440000\",\n    \"locationName\": \"Al Rawabi\",\n    \"latitude\": 20.5463465644,\n    \"longitude\": 17.4654373456,\n    \"time\" : \"20:00:00\",\n    \"celsiusDegree\": 39\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

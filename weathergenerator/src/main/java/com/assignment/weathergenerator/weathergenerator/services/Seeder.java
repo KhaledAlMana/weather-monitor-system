@@ -33,7 +33,6 @@ public class Seeder implements ISeeder {
 
     @Value("${SEEDER_ENDPOINT}")
     private String SEEDER_ENDPOINT;
-
     @Value("${BASIC_AUTH_CREDS}")
     private String BASIC_AUTH_CREDS;
 
