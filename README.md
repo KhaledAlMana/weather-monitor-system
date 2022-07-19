@@ -28,8 +28,9 @@ All you environment varibales are in `.env`. It is uncommon with springboot, but
 
 ### Backlog 🚧
 
-- Monitor App: Consume over Kafka Stream instead of using Kafka listener
+:)
 
 ### Done ✅
 
-- `*` : docker-compose.yml ✅
+- `*` : docker-compose.yml
+- Monitor App: Consume over Kafka Stream instead of using Kafka listener

@@ -1,0 +1,120 @@
+version: "3"
+
+volumes:
+  db-data: {}
+
+networks:
+  wms: {}
+
+services:
+  monitor-app-db:
+    container_name: monitor-app-db
+    image: postgres:latest
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - ${DATABASE_PORT}:5432
+    networks:
+      - wms
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+  zookeeper:
+    container_name: wms-zookeeper
+    image: confluentinc/cp-zookeeper:5.3.0
+    restart: always
+    ports:
+      - "63000:2181"
+    networks:
+      - wms
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_SYNC_LIMIT: 2
+
+  kafka:
+    container_name: wms-kafka
+    image: confluentinc/cp-kafka:5.3.0
+    restart: always
+    ports:
+      - "9092:9092"
+    networks:
+      - wms
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  ingestion-service:
+    container_name: ingestion-service
+    image: khaledalmana/ingestion-service:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - COMPONENT=ingestionservice
+    restart: always
+    network_mode: host
+    environment:
+      APP_HOST: localhost
+      SERVER_PORT: 62100
+      AUTH_USER: client
+      AUTH_PASS: tomato
+      KAFKA_HOST: localhost
+      KAFKA_PORT: 9092
+    depends_on:
+      - zookeeper
+      - kafka
+
+  weather-generator:
+    container_name: weather-generator
+    image: khaledalmana/weather-generator:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - COMPONENT=weathergenerator
+    restart: always
+    network_mode: host
+    environment:
+      SEEDER_CRON_EXPR: "* * * * * *"
+      SEEDER_ENDPOINT: "http://localhost:62100/api/v1/weather"
+      BASIC_AUTH_CREDS: client:tomato
+    depends_on:
+      - ingestion-service
+
+  # monitor-app:
+  #   container_name: monitor-app
+  #   image: khaledalmana/monitor-app:latest
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #     args:
+  #       - COMPONENT=monitorapp
+  #   restart: always
+  #   ports:
+  #     - "${MA_SERVER_PORT}:${MA_SERVER_PORT}"
+  #   networks:
+  #     - wms
+  #   environment:
+  #     APP_HOST: ${MA_APP_HOST}
+  #     SERVER_PORT: ${MA_SERVER_PORT}
+  #     AUTH_USER: ${MA_AUTH_USER}
+  #     AUTH_PASS: ${MA_AUTH_PASS}
+  #     DATABASE_HOST: monitor-app-db
+  #     DATABASE_PORT: 5432
+  #     DATABASE_PASS: ${DATABASE_PASS}
+  #     DATABASE_USER: ${DATABASE_USER}
+  #     DATABASE_NAME: ${DATABASE_NAME}
+  #     KAFKA_HOST: ${KAFKA_HOST}
+  #     KAFKA_PORT: ${KAFKA_PORT}
+  #   depends_on:
+  #     - monitor-app-db
+  #     - zookeeper
+  #     - kafka
