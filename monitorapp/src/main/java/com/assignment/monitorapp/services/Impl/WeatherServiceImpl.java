@@ -1,9 +1,16 @@
-package com.assignment.monitorapp.services;
+package com.assignment.monitorapp.services.Impl;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.kafka.annotation.KafkaListener;
+
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.KStream;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.support.serializer.JsonSerde;
 import org.springframework.stereotype.Service;
 
 import com.assignment.monitorapp.controllers.dto.CreateLocationReqDTO;
@@ -13,11 +20,11 @@ import com.assignment.monitorapp.data.entities.Weather;
 import com.assignment.monitorapp.data.projections.AverageWeatherView;
 import com.assignment.monitorapp.data.repositories.LocationRepository;
 import com.assignment.monitorapp.data.repositories.WeatherRepository;
+import com.assignment.monitorapp.services.WeatherService;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
-    private final String TOPIC = "${app.weather_topic}";
-    private final String GPROUP_ID = "${spring.kafka.consumer.group-id}";
+
     private final WeatherRepository weatherRepository;
     private final LocationRepository locationRepository;
 
@@ -26,11 +33,8 @@ public class WeatherServiceImpl implements WeatherService {
         this.locationRepository = locationRepository;
     }
 
-    // TODO: Implement Stream Instead
-    @KafkaListener(topics = TOPIC, groupId = GPROUP_ID)
-    public void consumeWeatherData(CreateWeatherReqDTO message) {
-        System.out.println("Consumed message: " + message);
-
+    public void weatherStreamHandler(CreateWeatherReqDTO message) {
+        System.out.println("Consumed streamed message: " + message);
         Location location = this.upsertLocation(CreateLocationReqDTO.builder()
                 .locationName(message.getLocationName())
                 .latitude(message.getLatitude())

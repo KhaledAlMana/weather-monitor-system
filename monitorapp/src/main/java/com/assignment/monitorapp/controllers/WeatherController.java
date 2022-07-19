@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.assignment.monitorapp.controllers.dto.AverageWeatherDTO;
 import com.assignment.monitorapp.controllers.dto.LocationDTO;
 import com.assignment.monitorapp.controllers.dto.WeatherDTO;
-import com.assignment.monitorapp.services.WeatherServiceImpl;
+import com.assignment.monitorapp.services.Impl.WeatherServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1")
