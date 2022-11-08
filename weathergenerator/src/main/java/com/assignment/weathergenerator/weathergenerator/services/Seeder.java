@@ -60,7 +60,8 @@ public class Seeder implements ISeeder {
     @Override
     public void seedRequest(CreateWeatherReqDTO createWeatherReqDTO) {
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<String> httpEntity = new HttpEntity(createWeatherReqDTO, getHeaders());
+        // Dimond Syntax
+        HttpEntity<CreateWeatherReqDTO> httpEntity = new HttpEntity<>(createWeatherReqDTO, getHeaders());
         ResponseEntity<Object> response = null;
         // Typesafety issue here...
         try {
